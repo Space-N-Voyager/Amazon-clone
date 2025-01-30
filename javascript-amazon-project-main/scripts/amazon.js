@@ -64,6 +64,40 @@ document.querySelector('.js-products-grid').innerHTML = productHTML;
 
 const addedMessageTimeouts = {};
 
+function addToCart(productId) {
+  let matchingItem;
+
+  const selectEl = document.querySelector(`.js-quantity-selector-${productId}`);
+  let productQuantity = Number(selectEl.value);
+
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+
+  if(matchingItem) {
+    matchingItem.quantity += productQuantity;
+  } else {
+      cart.push({
+        productId,
+        quantity:productQuantity
+      });
+  }
+}
+
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     // Find the specific "Added to Cart" element for the clicked product
@@ -74,8 +108,6 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
 
     const {productId} = button.dataset;
 
-
-    
     const previousTimeoutId = addedMessageTimeouts[productId];
     if(previousTimeoutId) {
       clearTimeout(previousTimeoutId);
@@ -88,39 +120,9 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     addedMessageTimeouts[productId] = timeoutId;
     
 
-
     // const productId = button.dataset.productId;
-    
-
-    let matchingItem;
-
-    const selectEl = document.querySelector(`.js-quantity-selector-${productId}`);
-    let productQuantity = Number(selectEl.value);
-
-    cart.forEach((item) => {
-      if(productId === item.productId) {
-        matchingItem = item;
-      }
-    });
-
-
-    if(matchingItem) {
-      matchingItem.quantity += productQuantity;
-    } else {
-        cart.push({
-          productId,
-          quantity:productQuantity
-        });
-    }
-
-    let cartQuantity = 0;
-
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
+    addToCart(productId);
+    updateCartQuantity();    
 
   });
 });
