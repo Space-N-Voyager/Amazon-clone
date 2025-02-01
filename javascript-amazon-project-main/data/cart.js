@@ -62,6 +62,14 @@ export function calculateCartQuantity() {
     cartQuantity += cartItem.quantity;
   });
   
-  document.querySelector('.js-cart-quantity')
-  .innerHTML = cartQuantity;
+  return cartQuantity;
+}
+
+export function updateQuantity(productId, newQuantity) {
+ cart.forEach((cartItem) => {
+  if(cartItem.productId === productId) {
+    cartItem.quantity = newQuantity;
+  }
+ }) 
+ localStorage.setItem('cart', JSON.stringify(cart));
 }

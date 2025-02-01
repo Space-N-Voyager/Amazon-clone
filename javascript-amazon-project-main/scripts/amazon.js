@@ -63,6 +63,10 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productHTML;
 
+const cartQuantity = calculateCartQuantity();
+
+document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; //Taking cartQuantity from the calculateCartQuantity function
+
 const addedMessageTimeouts = {};//Timeout ids for each product will be in this object
 
 calculateCartQuantity();
