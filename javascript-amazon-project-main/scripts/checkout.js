@@ -22,7 +22,7 @@ cart.forEach((cartItem) => {
     }
   });
 
-  const deliveryOptionId = cartItem.deliveryOptionsId;
+  const deliveryOptionId = cartItem.deliveryOptionId;
 
   let deliveryOption;
 
@@ -86,24 +86,24 @@ cart.forEach((cartItem) => {
 function deliveryOptionsHTML(matchingProduct, cartItem) {
   let html = '';
 
-  deliveryOptions.forEach((deliveryOptions) => {
+  deliveryOptions.forEach((deliveryOption) => {
 
     const today = dayjs();
     const deliveryDate = today.add(
-      deliveryOptions.deliveryDays,
+      deliveryOption.deliveryDays,
       'days'
     );
     const dateString = deliveryDate.format('dddd, MMMM D');
     
-    const priceString = deliveryOptions.priceCents === 0 
+    const priceString = deliveryOption.priceCents === 0 
     ? 'FREE'
-    :`$${formatCurrency(deliveryOptions.priceCents)} -`;
-    const isChecked = deliveryOptions.id === cartItem.deliveryOptionsId;
+    :`$${formatCurrency(deliveryOption.priceCents)} -`;
+    const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html +=`
           <div class="delivery-option js-delivery-option" 
           data-product-id="${matchingProduct.id}"
-          data-delivery-option-id="${deliveryOptions.id}">
+          data-delivery-option-id="${deliveryOption.id}">
             <input type="radio" 
               ${isChecked ? 'checked': ''}
               class="delivery-option-input"
@@ -177,9 +177,9 @@ document.querySelectorAll('.save-quantity-link').forEach((saveLink) => {
   });
 });
 
-document.querySelectorAll('.js-delivey-options').forEach((element) =>{
+document.querySelectorAll('.js-delivery-option').forEach((element) =>{
   element.addEventListener('click', () => {
     const {productID, deliveryOptionId} = element.dataset;
-    updateDeliveryOption(productID, deliveryOptionId)
+    updateDeliveryOption(productId, deliveryOptionId)
   });
 });
