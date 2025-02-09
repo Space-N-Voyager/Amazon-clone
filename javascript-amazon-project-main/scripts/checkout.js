@@ -8,6 +8,7 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 
 hello();
 
+function renderOrderSummary() {
 
 let cartSummary = '';
 
@@ -179,7 +180,11 @@ document.querySelectorAll('.save-quantity-link').forEach((saveLink) => {
 
 document.querySelectorAll('.js-delivery-option').forEach((element) =>{
   element.addEventListener('click', () => {
-    const {productID, deliveryOptionId} = element.dataset;
-    updateDeliveryOption(productId, deliveryOptionId)
+    const {productId, deliveryOptionId} = element.dataset;
+    updateDeliveryOption(productId, deliveryOptionId);
+    renderOrderSummary();
   });
 });
+}
+
+renderOrderSummary();
