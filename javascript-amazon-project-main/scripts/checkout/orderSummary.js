@@ -6,6 +6,7 @@ import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 
 
@@ -125,7 +126,7 @@ document.querySelectorAll('.js-delete-link')
       removeFromCart(productId);
 
       renderOrderSummary();
-
+      renderCheckoutHeader();
       renderPaymentSummary();
     });
     calculateCartQuantity();
@@ -145,7 +146,7 @@ document.querySelectorAll(`.js-update-quantity-link`).forEach((updateLink) => {
 
 const cartQuantity = calculateCartQuantity();
 
-document.querySelector('.js-return-to-home-link').innerHTML = cartQuantity;
+// document.querySelector('.js-return-to-home-link').innerHTML = cartQuantity;
 
 
 
