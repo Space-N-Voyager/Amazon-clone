@@ -1,4 +1,4 @@
-import formatCurrency from "../scripts/utils/money.js";
+import formatCurrency from "../../scripts/utils/money.js";
 
 
 console.log('test suite: formatCurrency'); //Test suite means group of tests
