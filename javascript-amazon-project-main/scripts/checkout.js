@@ -6,21 +6,37 @@ import { loadCart } from "../data/cart.js";
 // import '../data/car.js';
 // import '../data/backend-practice.js'
 
+async function loadPage() {
 
-Promise.all([
-  loadProductsFetch(),
-  new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
-    });
-  })
+  await loadProductsFetch();
 
-]).then((values) => {
-    console.log(values);
+  await new Promise((resolve) => {
+        loadCart(() => {
+          resolve('value3');
+        });
+      });
+
     renderCheckoutHeader();
     renderOrderSummary();
     renderPaymentSummary();
-});
+}
+loadPage();
+
+
+// Promise.all([
+//   loadProductsFetch(),
+//   new Promise((resolve) => {
+//     loadCart(() => {
+//       resolve();
+//     });
+//   })
+
+// ]).then((values) => {
+//     console.log(values);
+//     renderCheckoutHeader();
+//     renderOrderSummary();
+//     renderPaymentSummary();
+// });
 
 //runs the inner functions immediately
 // new Promise((resolve) => {
